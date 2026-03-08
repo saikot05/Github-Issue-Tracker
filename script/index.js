@@ -1,5 +1,5 @@
-const isLoogedIn = localStorage.getItem("login");
-if (!isLoogedIn) {
+const isLogedIn = localStorage.getItem("login");
+if (!isLogedIn) {
     window.location.href = "login.html";
 }
 
@@ -10,21 +10,29 @@ const openTab = document.getElementById("openTab");
 const closedTab = document.getElementById("closedTab");
 const searchInput = document.getElementById("searchInput");
 const newIssueBtn = document.getElementById("newIssueBtn");
+const modal = document.getElementById("issue")
 
-let currentStatus = "All";
+let currentStatus = "all";
 
 function toggleStyle(id) {
     allTab.classList.remove('btn-primary')
     openTab.classList.remove('btn-primary')
     closedTab.classList.remove('btn-primary')
 
+    allTab.classList.add('btn-soft')
+    openTab.classList.add('btn-soft')
+    closedTab.classList.add('btn-soft')
+
+
     if (id === "allTab") {
         currentStatus = 'all';
         allTab.classList.add('btn-primary');
-    } else if (id === "openTab") {
+    }
+    if (id === "openTab") {
         currentStatus = 'open';
         openTab.classList.add('btn-primary');
-    } else if (id === "closedTab") {
+    }
+    if (id === "closedTab") {
         currentStatus = 'closed';
         closedTab.classList.add('btn-primary');
     }
@@ -47,7 +55,7 @@ async function loadIssues() {
     <div class="text-center col-span-4 py-10">
         <span class="loading loading-spinner loading-lg"></span>
     </div>`;
-    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`;
     const res = await fetch(url);
     const data = await res.json();
     let issues = data.data;
@@ -86,17 +94,20 @@ function displayIssues(issues) {
                 labelsHTML += `
                 <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 border flex items-center gap-1"><i class="fa-solid fa-bug"></i>${label}</p>
                 `
-            }
-            if (label === "HELP WANTED") {
+            } else if (label === "HELP WANTED") {
                 labelsHTML += `
-                <p class="text-sm bg-[#D97706] [#FFF8DB] text- rounded-full px-2 border flex items-center gap-1"><i class="fa-regular fa-life-ring ">${label}</p>
+                <p class="text-sm bg-[#D97706] text-[#FFF8DB] rounded-full px-2 border flex items-center gap-1"><i class="fa-regular fa-life-ring ">${label}</p>
+                `
+            } else {
+                labelsHTML += `
+                <p class="text-sm bg-[#BBF7D0] text-[#00A96E] rounded-full px-2 border flex items-center gap-1"><i class="fa-solid fa-bug"></i>${label}</p>
                 `
             }
         })
         const card = document.createElement("div");
         card.className = `
     bg-white rounded-lg shadow-sm border-t-4 ${borderColor}
-    p-5 space-y-5 `;
+    p-5 space-y-5 cursor-pointer`;
         card.innerHTML = `
     <div class = "flex justify-between items-center">
         <img src = "${statusIcon}" alt = "">
@@ -112,7 +123,69 @@ function displayIssues(issues) {
     <p>${new Date(issue.createdAt).toLocaleDateString()}</p> 
     </div>
     `;
+        card.addEventListener("click", () => {
+            openIssue(issue.id);
+        })
         issuesContainer.appendChild(card);
     })
 }
+
+async function openIssue(id) {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const issue = data.data;
+    document.getElementById("modalTitle").innerText = issue.title;
+    document.getElementById("modalDesc").innerText = issue.description;
+    document.getElementById("modalAuthor").innerText = "Author: " + issue.author;
+    document.getElementById("modalDate").innerText = new Date(issue.createdAt).toLocaleDateString();
+    const stat = document.getElementById("modalStatus");
+    stat.innerText = issue.status;
+    if (issue.status === "open") {
+        stat.className = "bg-[#00A96E] text-[#FFFFFF]  px-2 py-1 rounded-full text-xs"
+    } else {
+        stat.className = "bg-[#A855F7] text-[#FFFFFF] px-2 py-1 rounded-full text-xs";
+    }
+    const prio = document.getElementById("modalPriority");
+    prio.innerText = issue.priority;
+    if (issue.priority === "HIGH") {
+        prio.className = "bg-[#EF4444] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
+    } else if (issue.priority === "MEDIUM") {
+        prio.className = "bg-[#F59E0B] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
+    } else if (issue.priority === "LOW") {
+        prio.className = "bg-[#9CA3AF] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
+    }
+    document.getElementById("modalAssignee").innerText = issue.author;
+    const labelsContainer = document.getElementById("modalLabels");
+    labelsContainer.innerHTML = "";
+    issue.labels.forEach(label => {
+        const p = document.createElement("p");
+        p.className = "text-sm bg-[#D97706] text-[#FFF8DB] rounded-full px-2 border"
+        p.innerText = label;
+        labelsContainer.appendChild(p);
+    })
+    document.getElementById("issue").showModal();
+
+}
+
+function closeModal() {
+    document.getElementById("issue").close();
+}
+searchInput.addEventListener("keyup", async() => {
+    const searchText = searchInput.value;
+    if (searchText === "") {
+        loadIssues();
+        return;
+    }
+    issuesContainer.innerHTML = `
+    <div class="text-center col-span-4 py-10">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
+    `
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayIssues(data.data);
+});
+
 loadIssues();
