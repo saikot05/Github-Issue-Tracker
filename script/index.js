@@ -65,7 +65,7 @@ async function loadIssues() {
     if (currentStatus === "closed") {
         issues = issues.filter(issue => issue.status === "closed")
     }
-    issueCount.innerText = issues.length + "Issues";
+    issueCount.innerText = issues.length + " Issues";
     displayIssues(issues);
 }
 
@@ -73,18 +73,16 @@ function displayIssues(issues) {
     issuesContainer.innerHTML = "";
     issues.forEach(issue => {
         let borderColor = issue.status === "open" ? "border-green-500" : "border-purple-500";
-        let statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png";
+        let statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status .png";
         let priorityBg = "";
         let priorityText = "";
         if (issue.priority === "high") {
             priorityBg = "#FEECEC";
             priorityText = "#EF4444"
-        }
-        if (issue.priority === "medium") {
+        } else if (issue.priority === "medium") {
             priorityBg = "#FFF6D1";
             priorityText = "#F59E0B"
-        }
-        if (issue.priority === "low") {
+        } else if (issue.priority === "low") {
             priorityBg = "#EEEFF2";
             priorityText = "#9CA3AF"
         }
@@ -96,7 +94,7 @@ function displayIssues(issues) {
                 `
             } else if (label === "help wanted") {
                 labelsHTML += `
-                <p class="text-xs bg-[#D97706] text-[#FFF8DB] rounded-full px-2 py-1 border flex items-center gap-1"><i class="fa-regular fa-life-ring "></i>${label}</p>
+                <p class="text-xs bg-[#D97706] text-[#FFF8DB] rounded-full px-2 py-1 border flex items-center gap-1"><i class="fa-regular fa-life-ring"></i>${label}</p>
                 `
             } else {
                 labelsHTML += `
