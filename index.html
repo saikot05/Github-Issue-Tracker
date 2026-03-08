@@ -38,9 +38,9 @@
                                 <path d="m21 21-4.3-4.3"></path>
                         </g>
                     </svg>
-                    <input type="search" required placeholder="Search issues..." />
+                    <input id="searchInput" type="search" required placeholder="Search issues..." />
                 </label>
-                <button class="btn btn-primary">+ New Issue</button>
+                <button id="newIssueBtn" class="btn btn-primary">+ New Issue</button>
 
             </div>
 
@@ -48,9 +48,9 @@
     </header>
     <section class="w-10/12 mx-auto mt-8 px-6">
         <div class="bg-white rounded-lg shadow-sm p-4 flex gap-3">
-            <button class="btn btn-primary px-10">All</button>
-            <button class="btn btn-soft px-8">Open</button>
-            <button class="btn btn-soft px-8">Closed</button>
+            <button onclick="toggleStyle('allTab')" id="allTab" class="btn btn-primary px-10">All</button>
+            <button onclick="toggleStyle('openTab')" id="openTab" class="btn btn-soft px-8">Open</button>
+            <button onclick="toggleStyle('closedTab')" id="closedTab" class="btn btn-soft px-8">Closed</button>
         </div>
         <div>
             <div class="bg-white p-5 flex justify-between items-center mt-3 rounded-t-lg">
@@ -59,7 +59,7 @@
                         <img src="./assets/Aperture.png" alt="">
                     </div>
                     <div>
-                        <h3 class="font-semibold text-lg">0 Issues</h3>
+                        <h3 id="issueCount" class="font-semibold text-lg">0 Issues</h3>
                         <p class="text-sm text-[#64748B]">Track and manage your project issues</p>
                     </div>
                 </div>
@@ -96,103 +96,10 @@
                     <p>1/15/2024</p>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-5 space-y-5">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <p class="text-[#EF4444] bg-[#FEECEC] px-4 py-1 rounded-2xl">HIGH</p>
-                </div>
-
-                <h2 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h2>
-                <p class="text-[#64748B] text-[12px]">The navigation menu doesn't collapse properly on mobile devices...</p>
-
-                <div class="flex gap-4">
-                    <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 flex items-center gap-1 border "><i class="fa-solid fa-bug ">
-                        </i>BUG</p>
-                    <p class="flex items-center gap-1 text-[#D97706] bg-[#FFF8DB] rounded-full px-2 border text-sm whitespace-nowrap"><i class="fa-regular fa-life-ring "></i>HELP WANTED</p>
-                </div>
-                <div class="text-[#64748B] text-sm border-t border-gray-500 pt-5">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-5 space-y-5">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <p class="text-[#EF4444] bg-[#FEECEC] px-4 py-1 rounded-2xl">HIGH</p>
-                </div>
-
-                <h2 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h2>
-                <p class="text-[#64748B] text-[12px]">The navigation menu doesn't collapse properly on mobile devices...</p>
-
-                <div class="flex gap-4">
-                    <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 flex items-center gap-1 border "><i class="fa-solid fa-bug ">
-                        </i>BUG</p>
-                    <p class="flex items-center gap-1 text-[#D97706] bg-[#FFF8DB] rounded-full px-2 border text-sm whitespace-nowrap"><i class="fa-regular fa-life-ring "></i>HELP WANTED</p>
-                </div>
-                <div class="text-[#64748B] text-sm border-t border-gray-500 pt-5">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-5 space-y-5">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <p class="text-[#EF4444] bg-[#FEECEC] px-4 py-1 rounded-2xl">HIGH</p>
-                </div>
-
-                <h2 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h2>
-                <p class="text-[#64748B] text-[12px]">The navigation menu doesn't collapse properly on mobile devices...</p>
-
-                <div class="flex gap-4">
-                    <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 flex items-center gap-1 border "><i class="fa-solid fa-bug ">
-                        </i>BUG</p>
-                    <p class="flex items-center gap-1 text-[#D97706] bg-[#FFF8DB] rounded-full px-2 border text-sm whitespace-nowrap"><i class="fa-regular fa-life-ring "></i>HELP WANTED</p>
-                </div>
-                <div class="text-[#64748B] text-sm border-t border-gray-500 pt-5">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-5 space-y-5">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <p class="text-[#EF4444] bg-[#FEECEC] px-4 py-1 rounded-2xl">HIGH</p>
-                </div>
-
-                <h2 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h2>
-                <p class="text-[#64748B] text-[12px]">The navigation menu doesn't collapse properly on mobile devices...</p>
-
-                <div class="flex gap-4">
-                    <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 flex items-center gap-1 border "><i class="fa-solid fa-bug ">
-                        </i>BUG</p>
-                    <p class="flex items-center gap-1 text-[#D97706] bg-[#FFF8DB] rounded-full px-2 border text-sm whitespace-nowrap"><i class="fa-regular fa-life-ring "></i>HELP WANTED</p>
-                </div>
-                <div class="text-[#64748B] text-sm border-t border-gray-500 pt-5">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-5 space-y-5">
-                <div class="flex justify-between items-center">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <p class="text-[#EF4444] bg-[#FEECEC] px-4 py-1 rounded-2xl">HIGH</p>
-                </div>
-
-                <h2 class="font-semibold text-[14px]">Fix navigation menu on mobile devices</h2>
-                <p class="text-[#64748B] text-[12px]">The navigation menu doesn't collapse properly on mobile devices...</p>
-
-                <div class="flex gap-4">
-                    <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 flex items-center gap-1 border "><i class="fa-solid fa-bug ">
-                        </i>BUG</p>
-                    <p class="flex items-center gap-1 text-[#D97706] bg-[#FFF8DB] rounded-full px-2 border text-sm whitespace-nowrap"><i class="fa-regular fa-life-ring "></i>HELP WANTED</p>
-                </div>
-                <div class="text-[#64748B] text-sm border-t border-gray-500 pt-5">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-            </div>
         </div>
     </section>
+
+    <script src="./script/index.js"></script>
 </body>
 
 </html>
