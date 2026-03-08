@@ -26,14 +26,17 @@ function toggleStyle(id) {
 
     if (id === "allTab") {
         currentStatus = 'all';
+        allTab.classList.remove('btn-soft');
         allTab.classList.add('btn-primary');
     }
     if (id === "openTab") {
         currentStatus = 'open';
+        openTab.classList.remove('btn-soft');
         openTab.classList.add('btn-primary');
     }
     if (id === "closedTab") {
         currentStatus = 'closed';
+        closedTab.classList.remove('btn-soft');
         closedTab.classList.add('btn-primary');
     }
 }
@@ -73,7 +76,7 @@ function displayIssues(issues) {
     issuesContainer.innerHTML = "";
     issues.forEach(issue => {
         let borderColor = issue.status === "open" ? "border-green-500" : "border-purple-500";
-        let statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status .png";
+        let statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png";
         let priorityBg = "";
         let priorityText = "";
         if (issue.priority === "high") {
