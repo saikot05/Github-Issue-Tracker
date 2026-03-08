@@ -76,31 +76,31 @@ function displayIssues(issues) {
         let statusIcon = issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png";
         let priorityBg = "";
         let priorityText = "";
-        if (issue.priority === "HIGH") {
+        if (issue.priority === "high") {
             priorityBg = "#FEECEC";
             priorityText = "#EF4444"
         }
-        if (issue.priority === "MEDIUM") {
+        if (issue.priority === "medium") {
             priorityBg = "#FFF6D1";
             priorityText = "#F59E0B"
         }
-        if (issue.priority === "LOW") {
+        if (issue.priority === "low") {
             priorityBg = "#EEEFF2";
             priorityText = "#9CA3AF"
         }
         let labelsHTML = "";
         issue.labels.forEach(label => {
-            if (label === "BUG") {
+            if (label === "bug") {
                 labelsHTML += `
-                <p class="text-sm bg-[#FEECEC] text-[#EF4444] rounded-full px-2 border flex items-center gap-1"><i class="fa-solid fa-bug"></i>${label}</p>
+                <p class="text-xs bg-[#FEECEC] text-[#EF4444] rounded-full px-2 py-1 border flex items-center gap-1"><i class="fa-solid fa-bug"></i>${label}</p>
                 `
-            } else if (label === "HELP WANTED") {
+            } else if (label === "help wanted") {
                 labelsHTML += `
-                <p class="text-sm bg-[#D97706] text-[#FFF8DB] rounded-full px-2 border flex items-center gap-1"><i class="fa-regular fa-life-ring ">${label}</p>
+                <p class="text-xs bg-[#D97706] text-[#FFF8DB] rounded-full px-2 py-1 border flex items-center gap-1"><i class="fa-regular fa-life-ring "></i>${label}</p>
                 `
             } else {
                 labelsHTML += `
-                <p class="text-sm bg-[#BBF7D0] text-[#00A96E] rounded-full px-2 border flex items-center gap-1"><i class="fa-solid fa-bug"></i>${label}</p>
+                <p class="text-xs bg-[#BBF7D0] text-[#00A96E] rounded-full px-2 py-1 border flex items-center gap-1">${label}</p>
                 `
             }
         })
@@ -111,7 +111,7 @@ function displayIssues(issues) {
         card.innerHTML = `
     <div class = "flex justify-between items-center">
         <img src = "${statusIcon}" alt = "">
-        <p style="background:${priorityBg}; color:${priorityText}" class = "px-4 py-1 rounded-2xl">${issue.priority}</p>
+        <p style="background:${priorityBg}; color:${priorityText}" class = "px-2 py-1 rounded-full">${issue.priority}</p>
     </div>
     <h2 class = "font-semibold text-[14px]">${issue.title}</h2>
     <p class = "text-[#64748B] text-[12px]">${issue.description}</p>
@@ -148,11 +148,11 @@ async function openIssue(id) {
     }
     const prio = document.getElementById("modalPriority");
     prio.innerText = issue.priority;
-    if (issue.priority === "HIGH") {
+    if (issue.priority === "high") {
         prio.className = "bg-[#EF4444] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
-    } else if (issue.priority === "MEDIUM") {
+    } else if (issue.priority === "medium") {
         prio.className = "bg-[#F59E0B] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
-    } else if (issue.priority === "LOW") {
+    } else if (issue.priority === "low") {
         prio.className = "bg-[#9CA3AF] text-[#FFFFFF] px-2 py-1 rounded-full inline-block"
     }
     document.getElementById("modalAssignee").innerText = issue.author;
