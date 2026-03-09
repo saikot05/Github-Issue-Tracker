@@ -86,7 +86,7 @@ function displayIssues(issues) {
         } else if (issue.priority === "medium") {
             priorityBg = "#FFF6D1";
             priorityText = "#F59E0B"
-            
+
         } else if (issue.priority === "low") {
             priorityBg = "#EEEFF2";
             priorityText = "#9CA3AF"
@@ -113,7 +113,7 @@ function displayIssues(issues) {
     p-5 space-y-5 cursor-pointer`;
         card.innerHTML = `
     <div class = "flex justify-between items-center">
-        <img src = "${statusIcon}" alt = "${issue.status}" class="w-6 h-6">
+        <img src = "${statusIcon}" alt = "" class="w-6 h-6">
         <p style="background:${priorityBg}; color:${priorityText}" class = "px-2 py-1 rounded-full">${issue.priority}</p>
     </div>
     <h2 class = "font-semibold text-[14px]">${issue.title}</h2>
