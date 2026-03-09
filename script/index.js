@@ -75,8 +75,9 @@ async function loadIssues() {
 function displayIssues(issues) {
     issuesContainer.innerHTML = "";
     issues.forEach(issue => {
-        let borderColor = issue.status === "open" ? "border-green-500" : "border-purple-500";
-        let statusIcon = issue.status === "open" ? "../assets/Open-Status.png" : "../assets/Closed-Status.png";
+        let status = issue.status.toLowerCase();
+        let borderColor = status === "open" ? "border-green-500" : "border-purple-500";
+        let statusIcon = status === "open" ? "../assets/Open-Status.png" : "../assets/Closed-Status.png";
         let priorityBg = "";
         let priorityText = "";
         if (issue.priority === "high") {
